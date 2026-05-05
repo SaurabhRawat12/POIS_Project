@@ -1,0 +1,82 @@
+{
+  "pa_id": "PA#13",
+  "demo": "Carmichael-561",
+  "n": 561,
+  "fermat_result": "PROBABLY_PRIME",
+  "miller_rabin_result": "COMPOSITE",
+  "fermat_details": {
+    "n": 561,
+    "result": "PROBABLY_PRIME",
+    "tested_bases": [
+      {
+        "base": 2,
+        "gcd": 1,
+        "a^(n-1) mod n": 1,
+        "result": "PROBABLY_PRIME"
+      },
+      {
+        "base": 5,
+        "gcd": 1,
+        "a^(n-1) mod n": 1,
+        "result": "PROBABLY_PRIME"
+      },
+      {
+        "base": 10,
+        "gcd": 1,
+        "a^(n-1) mod n": 1,
+        "result": "PROBABLY_PRIME"
+      },
+      {
+        "base": 13,
+        "gcd": 1,
+        "a^(n-1) mod n": 1,
+        "result": "PROBABLY_PRIME"
+      },
+      {
+        "base": 50,
+        "gcd": 1,
+        "a^(n-1) mod n": 1,
+        "result": "PROBABLY_PRIME"
+      }
+    ],
+    "reason": "all tested coprime bases passed"
+  },
+  "miller_rabin_details": {
+    "pa_id": "PA#13",
+    "algorithm": "Miller-Rabin",
+    "n": 561,
+    "k": 8,
+    "result": "COMPOSITE",
+    "is_probably_prime": false,
+    "rounds_executed": 1,
+    "witness": 234,
+    "decomposition": {
+      "s": 4,
+      "d": 35
+    },
+    "reason": "witness 234 proves compositeness",
+    "elapsed_ms": 0.02850599958037492,
+    "trace": [
+      {
+        "round": 1,
+        "witness": 234,
+        "x0": 276,
+        "squarings": [
+          {
+            "step": 1,
+            "x": 441
+          },
+          {
+            "step": 2,
+            "x": 375
+          },
+          {
+            "step": 3,
+            "x": 375
+          }
+        ],
+        "outcome": "composite"
+      }
+    ]
+  }
+}

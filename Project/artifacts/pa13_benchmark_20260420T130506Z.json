@@ -1,0 +1,23 @@
+{
+  "generated_at_utc": "20260420T130506Z",
+  "bit_sizes": [
+    64
+  ],
+  "trials": 1,
+  "k": 8,
+  "results": [
+    {
+      "bits": 64,
+      "trials": 1,
+      "k": 8,
+      "avg_attempts": 19,
+      "min_attempts": 19,
+      "max_attempts": 19,
+      "expected_ln_2_pow_bits": 44.3614195558365,
+      "attempts_vs_ln_ratio": 0.428300090263911,
+      "avg_elapsed_ms": 4.683438999563805,
+      "min_elapsed_ms": 4.683438999563805,
+      "max_elapsed_ms": 4.683438999563805
+    }
+  ]
+}

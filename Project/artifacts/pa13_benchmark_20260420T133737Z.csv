@@ -1,0 +1,2 @@
+bits,trials,k,avg_attempts,min_attempts,max_attempts,expected_ln_2_pow_bits,attempts_vs_ln_ratio,avg_elapsed_ms,min_elapsed_ms,max_elapsed_ms
+32,1,8,18,18,18,22.18070977791825,0.8115159605000419,1.4861760009807767,1.4861760009807767,1.4861760009807767

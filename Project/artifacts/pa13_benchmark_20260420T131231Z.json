@@ -1,0 +1,51 @@
+{
+  "generated_at_utc": "20260420T131231Z",
+  "bit_sizes": [
+    512,
+    1024,
+    2048
+  ],
+  "trials": 1,
+  "k": 40,
+  "results": [
+    {
+      "bits": 512,
+      "trials": 1,
+      "k": 40,
+      "avg_attempts": 183,
+      "min_attempts": 183,
+      "max_attempts": 183,
+      "expected_ln_2_pow_bits": 354.891356446692,
+      "attempts_vs_ln_ratio": 0.515650766567735,
+      "avg_elapsed_ms": 403.5195240012399,
+      "min_elapsed_ms": 403.5195240012399,
+      "max_elapsed_ms": 403.5195240012399
+    },
+    {
+      "bits": 1024,
+      "trials": 1,
+      "k": 40,
+      "avg_attempts": 49,
+      "min_attempts": 49,
+      "max_attempts": 49,
+      "expected_ln_2_pow_bits": 709.782712893384,
+      "attempts_vs_ln_ratio": 0.0690352119175383,
+      "avg_elapsed_ms": 1092.3795239996252,
+      "min_elapsed_ms": 1092.3795239996252,
+      "max_elapsed_ms": 1092.3795239996252
+    },
+    {
+      "bits": 2048,
+      "trials": 1,
+      "k": 40,
+      "avg_attempts": 1052,
+      "min_attempts": 1052,
+      "max_attempts": 1052,
+      "expected_ln_2_pow_bits": 1419.565425786768,
+      "attempts_vs_ln_ratio": 0.7410718667066355,
+      "avg_elapsed_ms": 44478.17366399977,
+      "min_elapsed_ms": 44478.17366399977,
+      "max_elapsed_ms": 44478.17366399977
+    }
+  ]
+}
