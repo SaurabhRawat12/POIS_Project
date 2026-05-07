@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import ExplorerPage from './pages/ExplorerPage'
 import PrimalityPage from './pages/PrimalityPage'
 import DHPage from './pages/DHPage'
+import BirthdayPage from './pages/BirthdayPage'
 import { checkHealth } from './api/client'
 import './App.css'
 
@@ -9,6 +10,7 @@ const TABS = [
   { id: 'explorer', label: 'Explorer (PA#0)' },
   { id: 'primality', label: 'PA#13 Primality' },
   { id: 'dh', label: 'PA#11 Diffie-Hellman' },
+  { id: 'birthday', label: 'PA#9 Birthday' },
 ]
 
 export default function App() {
@@ -47,6 +49,7 @@ export default function App() {
         {tab === 'explorer' && <ExplorerPage />}
         {tab === 'primality' && <PrimalityPage />}
         {tab === 'dh' && <DHPage />}
+        {tab === 'birthday' && <BirthdayPage />}
       </main>
     </div>
   )
