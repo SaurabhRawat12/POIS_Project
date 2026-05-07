@@ -93,10 +93,15 @@ def pa5_euf_cma_demo_hook(payload: dict[str, Any] | None = None) -> dict[str, An
 
 
 def pa5_length_extension_demo_hook(payload: dict[str, Any]) -> dict[str, Any]:
-    key = _read_bytes(payload, "key")
-    message = _read_bytes(payload, "message")
-    suffix = _read_bytes(payload, "suffix")
+    # Provide sensible defaults so the demo works with an empty payload
+    default_key = b"mysecretkey12345"  # 16-byte key
+    default_message = b"Hello World!!!!"  # 15 bytes (pad to 16)
+    default_suffix = b"extra_data______"  # 16 bytes
     block_size = int(payload.get("block_size", 16))
+
+    key = _read_bytes(payload, "key", default=default_key)
+    message = _read_bytes(payload, "message", default=default_message)
+    suffix = _read_bytes(payload, "suffix", default=default_suffix)
 
     result = length_extension_demo(key, message, suffix, block_size=block_size)
 

@@ -69,11 +69,17 @@ def pa4_decrypt_hook(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def pa4_cbc_iv_reuse_demo_hook(payload: dict[str, Any]) -> dict[str, Any]:
-    key = _read_bytes(payload, "key")
-    iv = _read_bytes(payload, "iv")
-    message_a = _read_bytes(payload, "message_a")
-    message_b = _read_bytes(payload, "message_b")
     block_size = int(payload.get("block_size", 16))
+    # Sensible defaults for demo when called with empty payload
+    default_key = b"\xde\xad\xbe\xef" * 4           # 16 bytes
+    default_iv  = b"\x00" * 16
+    default_msg_a = b"Attack at dawn!!"              # 16 bytes
+    default_msg_b = b"Attack at dawn!!"              # same => leaks equality
+
+    key       = _read_bytes(payload, "key",       default=default_key)
+    iv        = _read_bytes(payload, "iv",        default=default_iv)
+    message_a = _read_bytes(payload, "message_a", default=default_msg_a)
+    message_b = _read_bytes(payload, "message_b", default=default_msg_b)
 
     cipher = build_feistel_cipher(key, block_size=block_size)
     demo = cbc_iv_reuse_attack_demo(key, message_a, message_b, iv, block_cipher=cipher, block_size=block_size)
@@ -87,11 +93,17 @@ def pa4_cbc_iv_reuse_demo_hook(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def pa4_ofb_reuse_demo_hook(payload: dict[str, Any]) -> dict[str, Any]:
-    key = _read_bytes(payload, "key")
-    iv = _read_bytes(payload, "iv")
-    message_a = _read_bytes(payload, "message_a")
-    message_b = _read_bytes(payload, "message_b")
     block_size = int(payload.get("block_size", 16))
+    # Sensible defaults for demo when called with empty payload
+    default_key = b"\xde\xad\xbe\xef" * 4
+    default_iv  = b"\x00" * 16
+    default_msg_a = b"Secret message A"
+    default_msg_b = b"Secret message B"
+
+    key       = _read_bytes(payload, "key",       default=default_key)
+    iv        = _read_bytes(payload, "iv",        default=default_iv)
+    message_a = _read_bytes(payload, "message_a", default=default_msg_a)
+    message_b = _read_bytes(payload, "message_b", default=default_msg_b)
 
     cipher = build_feistel_cipher(key, block_size=block_size)
     demo = ofb_keystream_reuse_attack_demo(key, message_a, message_b, iv, block_cipher=cipher, block_size=block_size)

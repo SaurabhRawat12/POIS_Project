@@ -321,6 +321,10 @@ body {
   display: flex;
   gap: 0.25rem;
   flex: 1;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #3a3d42 transparent;
+  -webkit-overflow-scrolling: touch;
 }
 
 .app-tab {
@@ -331,6 +335,7 @@ body {
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
+  white-space: nowrap;
   transition: background 0.15s, color 0.15s;
 }
 
