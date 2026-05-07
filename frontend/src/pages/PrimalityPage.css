@@ -1,0 +1,224 @@
+.primality-page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  color: #e6e6e6;
+}
+
+.primality-header h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.5rem;
+}
+
+.primality-header .subtitle {
+  margin: 0;
+  color: #9aa0a6;
+  font-size: 0.9rem;
+}
+
+.presets {
+  margin: 1.5rem 0 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.presets-label {
+  font-size: 0.85rem;
+  color: #9aa0a6;
+  margin-right: 0.25rem;
+}
+
+.preset-chip {
+  background: #2a2d31;
+  color: #d6d6d6;
+  border: 1px solid #3a3d42;
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.preset-chip:hover {
+  background: #34373c;
+  border-color: #4a4f55;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #1c1f23;
+  border: 1px solid #2a2d31;
+  border-radius: 8px;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.control-label {
+  font-size: 0.75rem;
+  color: #9aa0a6;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.n-input {
+  background: #0f1115;
+  color: #e6e6e6;
+  border: 1px solid #3a3d42;
+  border-radius: 6px;
+  padding: 0.5rem 0.7rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.95rem;
+}
+
+.n-input:focus {
+  outline: none;
+  border-color: #5e9eff;
+}
+
+.rounds-slider { width: 100%; }
+
+.rounds-hint {
+  font-size: 0.75rem;
+  color: #6e7480;
+}
+
+.test-btn {
+  background: #5e9eff;
+  color: #0f1115;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  height: fit-content;
+}
+
+.test-btn:hover:not(:disabled) { background: #7ab0ff; }
+.test-btn:disabled {
+  background: #3a3d42;
+  cursor: not-allowed;
+  color: #6e7480;
+}
+
+.error-box {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: #3a1f24;
+  border: 1px solid #6b2a33;
+  border-radius: 6px;
+  color: #ff8a99;
+  font-size: 0.9rem;
+}
+
+.verdict {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid;
+}
+
+.verdict.prime { background: #15281b; border-color: #2e6b3a; }
+.verdict.composite { background: #2a1517; border-color: #6b2a33; }
+
+.verdict-headline {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.verdict.prime .verdict-headline { color: #5fdc7a; }
+.verdict.composite .verdict-headline { color: #ff7a8a; }
+
+.verdict-icon { font-size: 1.6rem; }
+
+.verdict-meta {
+  margin-top: 0.5rem;
+  color: #9aa0a6;
+  font-size: 0.85rem;
+}
+
+.verdict-meta code {
+  background: #0f1115;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.trace {
+  margin-top: 1rem;
+  border-top: 1px solid #2a2d31;
+  padding-top: 0.75rem;
+}
+
+.trace summary {
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #9aa0a6;
+}
+
+.trace summary:hover { color: #d6d6d6; }
+
+.trace-body {
+  margin-top: 0.6rem;
+  padding: 0.8rem;
+  background: #0f1115;
+  border: 1px solid #2a2d31;
+  border-radius: 6px;
+  color: #c8c8c8;
+  font-size: 0.8rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  max-height: 320px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+@media (max-width: 700px) {
+  .controls { grid-template-columns: 1fr; }
+}
+
+.verdict-detail {
+  margin-top: 0.6rem;
+  font-size: 0.88rem;
+  color: #c8c8c8;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.verdict-detail .detail-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6e7480;
+  min-width: 7em;
+}
+
+.verdict-detail code {
+  background: #0f1115;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.detail-reason {
+  color: #9aa0a6;
+  font-style: italic;
+}
