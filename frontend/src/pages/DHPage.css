@@ -1,0 +1,211 @@
+.dh-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  color: #e6e6e6;
+}
+
+.dh-header h2 { margin: 0 0 0.4rem; font-size: 1.5rem; }
+.dh-header .subtitle { margin: 0; color: #9aa0a6; font-size: 0.9rem; }
+
+.group-strip {
+  margin-top: 1.5rem;
+  padding: 0.85rem 1rem;
+  background: #1c1f23;
+  border: 1px solid #2a2d31;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.group-label {
+  font-size: 0.7rem;
+  color: #9aa0a6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.group-values {
+  display: flex;
+  gap: 1.25rem;
+  flex: 1;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
+
+.group-values code {
+  background: #0f1115;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.group-values.muted { color: #6e7480; font-style: italic; }
+
+.regen-btn {
+  background: #2a2d31;
+  color: #d6d6d6;
+  border: 1px solid #3a3d42;
+  border-radius: 6px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.regen-btn:hover:not(:disabled) { background: #34373c; }
+.regen-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.controls-strip {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #1c1f23;
+  border: 1px solid #2a2d31;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.mitm-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #d6d6d6;
+}
+
+.mitm-toggle input[type="checkbox"] {
+  width: 1.05rem;
+  height: 1.05rem;
+  accent-color: #ff7a8a;
+}
+
+.run-btn {
+  margin-left: auto;
+  background: #5e9eff;
+  color: #0f1115;
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem 1.4rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.run-btn:hover:not(:disabled) { background: #7ab0ff; }
+.run-btn:disabled {
+  background: #3a3d42;
+  color: #6e7480;
+  cursor: not-allowed;
+}
+
+.error-box {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: #3a1f24;
+  border: 1px solid #6b2a33;
+  border-radius: 6px;
+  color: #ff8a99;
+  font-size: 0.9rem;
+}
+
+.exchange-view { margin-top: 1.5rem; }
+
+.parties { display: grid; gap: 1rem; }
+.parties.two-cols { grid-template-columns: 1fr 1fr; }
+.parties.three-cols { grid-template-columns: 1fr 1fr 1fr; }
+
+.party {
+  background: #1c1f23;
+  border: 1px solid #2a2d31;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.party.ok { background: #15281b; border-color: #2e6b3a; }
+.party.warn { background: #2a1517; border-color: #6b2a33; }
+.party.eve { background: #2d2210; border-color: #735220; }
+
+.party h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.1rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.party.ok h3 { color: #b6f5c5; }
+.party.warn h3 { color: #ffb6bf; }
+.party.eve h3 { color: #ffd66e; }
+
+.eve-badge {
+  font-size: 0.6rem;
+  background: #735220;
+  color: #ffe5a0;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.party-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  gap: 0.75rem;
+}
+
+.party-row:last-child { border-bottom: none; }
+.party-row.secret { font-weight: 600; }
+
+.party-row .row-label {
+  color: #9aa0a6;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.party-row code {
+  background: #0f1115;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+  color: #ffffff;
+  text-align: right;
+  word-break: break-all;
+}
+
+.verdict-bar {
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.verdict-bar.ok {
+  background: #15281b;
+  color: #5fdc7a;
+  border: 1px solid #2e6b3a;
+}
+
+.verdict-bar.fail {
+  background: #2a1517;
+  color: #ff7a8a;
+  border: 1px solid #6b2a33;
+}
+
+@media (max-width: 800px) {
+  .parties.three-cols, .parties.two-cols { grid-template-columns: 1fr; }
+}

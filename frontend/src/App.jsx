@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ExplorerPage from './pages/ExplorerPage'
 import PrimalityPage from './pages/PrimalityPage'
+import DHPage from './pages/DHPage'
 import { checkHealth } from './api/client'
-import { useEffect } from 'react'
 import './App.css'
 
 const TABS = [
   { id: 'explorer', label: 'Explorer (PA#0)' },
   { id: 'primality', label: 'PA#13 Primality' },
+  { id: 'dh', label: 'PA#11 Diffie-Hellman' },
 ]
 
 export default function App() {
@@ -45,6 +46,7 @@ export default function App() {
       <main className="app-main">
         {tab === 'explorer' && <ExplorerPage />}
         {tab === 'primality' && <PrimalityPage />}
+        {tab === 'dh' && <DHPage />}
       </main>
     </div>
   )
