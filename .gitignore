@@ -35,3 +35,5 @@ frontend/dist/
 
 # Logs
 *.log
+node_modules/
+frontend/dist/
