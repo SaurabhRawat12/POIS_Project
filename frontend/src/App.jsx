@@ -4,6 +4,7 @@ import PrimalityPage from './pages/PrimalityPage'
 import DHPage from './pages/DHPage'
 import BirthdayPage from './pages/BirthdayPage'
 import MpcPage from './pages/MpcPage'
+import HastadPage from './pages/HastadPage'
 
 import { checkHealth } from './api/client'
 import './App.css'
@@ -14,6 +15,7 @@ const TABS = [
   { id: 'dh', label: 'PA#11 Diffie-Hellman' },
   { id: 'birthday', label: 'PA#9 Birthday' },
   { id: 'mpc', label: 'PA#20 MPC' },
+  { id: 'hastad', label: 'PA#14 Hastad' },
 ]
 
 export default function App() {
@@ -54,6 +56,7 @@ export default function App() {
         {tab === 'dh' && <DHPage />}
         {tab === 'birthday' && <BirthdayPage />}
         {tab === 'mpc' && <MpcPage />}
+        {tab === 'hastad' && <HastadPage />}
       </main>
     </div>
   )
