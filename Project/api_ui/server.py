@@ -65,6 +65,56 @@ from api_ui.pa6_hooks import (
 )
 from api_ui.pa7_hooks import pa7_collision_demo_hook, pa7_md_hash_hook
 
+# Filling in previously-missing PA wrappers
+from api_ui.pa8_api import (
+    collision_compress_endpoint,
+    collision_hash_endpoint,
+    compress_endpoint,
+    group_setup_endpoint,
+    hash_endpoint,
+    proof_endpoint,
+)
+from api_ui.pa9_api import (
+    attack_dlp_hash_endpoint,
+    birthday_curve_endpoint,
+    birthday_trials_endpoint,
+    floyd_birthday_endpoint,
+    md5_sha1_context_endpoint,
+    naive_birthday_endpoint,
+)
+from api_ui.pa10_api import (
+    crhf_to_mac_demo_endpoint,
+    eth_decrypt_endpoint,
+    eth_encrypt_endpoint,
+    hmac_tag_endpoint,
+    hmac_verify_endpoint,
+    length_extension_demo_endpoint,
+    mac_to_crhf_demo_endpoint,
+    secure_compare_endpoint,
+    timing_demo_endpoint,
+)
+from api_ui.pa1_api import (
+    owf_evaluate_endpoint,
+    owf_hardness_endpoint,
+    prg_as_owf_hardness_endpoint,
+    prg_generate_endpoint,
+    prg_to_owf_demo_endpoint,
+)
+from api_ui.pa2_api import (
+    prf_distinguish_experiment_endpoint,
+    prf_distinguish_game_endpoint,
+    prf_eval_endpoint,
+    prf_to_prg_endpoint,
+    prf_trace_endpoint,
+)
+from api_ui.pa3_api import (
+    cpa_decrypt_endpoint,
+    cpa_encrypt_endpoint,
+    dummy_adversary_endpoint,
+    ind_cpa_game_endpoint,
+    nonce_reuse_attack_endpoint,
+)
+
 # My new endpoints (PA #15, #17, #18, #19, #20)
 from api_ui.pa15_api import (
     euf_cma_endpoint as pa15_euf_cma_endpoint,
@@ -240,6 +290,233 @@ class PA16IndCpaRequest(BaseModel):
 class HookPayload(BaseModel):
     payload: Dict[str, Any] = {}
 
+# PA#1 -- OWF + PRG
+class PA1OwfEvaluateRequest(BaseModel):
+    x: int
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+class PA1OwfHardnessRequest(BaseModel):
+    method: str = "dlp"
+    trials: int = 1000
+    p: int = 65537
+    g: int = 3
+
+
+class PA1PrgGenerateRequest(BaseModel):
+    seed: int
+    n_bits: int = 64
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+class PA1PrgToOwfDemoRequest(BaseModel):
+    seed_val: int = 32415
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+class PA1PrgAsOwfHardnessRequest(BaseModel):
+    seed_val: int = 32415
+    trials: int = 5000
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+# PA#2 -- PRF (GGM tree)
+class PA2EvalRequest(BaseModel):
+    k: str
+    x: str
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+class PA2TraceRequest(BaseModel):
+    k: str
+    x: str
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+class PA2PrgRequest(BaseModel):
+    s: str
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+class PA2DistinguishGameRequest(BaseModel):
+    k: str
+    q: int = 100
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+class PA2DistinguishExperimentRequest(BaseModel):
+    k: str
+    rounds: int = 100
+    q: int = 100
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+# PA#3 -- CPA-secure encryption
+class PA3EncryptRequest(BaseModel):
+    k: str
+    m: str
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+class PA3DecryptRequest(BaseModel):
+    k: str
+    r: str
+    c: str
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+class PA3GameRequest(BaseModel):
+    k: str
+    m0: str
+    m1: str
+    reuse_nonce: bool = False
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+class PA3DummyAdversaryRequest(BaseModel):
+    k: str
+    m0: str
+    m1: str
+    rounds: int = 100
+    oracle_queries: int = 50
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+class PA3NonceReuseAttackRequest(BaseModel):
+    k: str
+    m0: str
+    m1: str
+    rounds: int = 100
+    reuse_nonce: bool = True
+    method: str = "dlp"
+    p: int = 65537
+    g: int = 3
+
+
+# PA#8 -- DLP-based CRHF
+class PA8GroupRequest(BaseModel):
+    q_bits: int = 32
+
+
+class PA8CompressRequest(BaseModel):
+    x: int
+    y: int
+    params: Dict[str, int]
+
+
+class PA8HashRequest(BaseModel):
+    message: str
+    params: Optional[Dict[str, int]] = None
+    q_bits: int = 32
+    out_bits: Optional[int] = None
+
+
+class PA8CollisionCompressRequest(BaseModel):
+    q_bits: int = 16
+    params: Optional[Dict[str, int]] = None
+
+
+class PA8CollisionHashRequest(BaseModel):
+    q_bits: int = 16
+    out_bits: int = 16
+    params: Optional[Dict[str, int]] = None
+
+
+# PA#9 -- Birthday Attack
+class PA9AttackRequest(BaseModel):
+    n: int
+    max_trials: Optional[int] = None
+
+
+class PA9DLPAttackRequest(BaseModel):
+    n: int = 16
+    q_bits: int = 16
+
+
+class PA9TrialsRequest(BaseModel):
+    n: int
+    trials: int = 100
+
+
+class PA9CurveRequest(BaseModel):
+    n_values: Optional[List[int]] = None
+    trials: int = 50
+
+
+# PA#10 -- HMAC + Encrypt-then-HMAC
+class PA10HmacTagRequest(BaseModel):
+    key_hex: str
+    message: str
+    params: Optional[Dict[str, int]] = None
+    q_bits: int = 16
+
+
+class PA10HmacVerifyRequest(BaseModel):
+    key_hex: str
+    message: str
+    tag_hex: str
+    params: Optional[Dict[str, int]] = None
+    q_bits: int = 16
+
+
+class PA10DemoRequest(BaseModel):
+    params: Optional[Dict[str, int]] = None
+    q_bits: int = 16
+
+
+class PA10EthEncryptRequest(BaseModel):
+    key_e_hex: str
+    key_m_hex: str
+    message: str
+    params: Optional[Dict[str, int]] = None
+    q_bits: int = 16
+
+
+class PA10EthDecryptRequest(BaseModel):
+    key_e_hex: str
+    key_m_hex: str
+    nonce_hex: str
+    ciphertext_hex: str
+    tag_hex: str
+    params: Optional[Dict[str, int]] = None
+    q_bits: int = 16
+
+
+class PA10TimingRequest(BaseModel):
+    tag_length: int = 32
+    trials: int = 5000
+
+
+class PA10SecureCompareRequest(BaseModel):
+    a_hex: str
+    b_hex: str
+
 
 # PA#15
 class PA15SignRequest(BaseModel):
@@ -363,6 +640,132 @@ class PA20CircuitRequest(BaseModel):
 
 
 # ---------------------------------------------------------------------------
+# PA #1 -- OWF + PRG
+# ---------------------------------------------------------------------------
+
+@app.post("/pa1/owf-evaluate", tags=["PA#1 OWF + PRG"])
+def pa1_owf_evaluate(req: PA1OwfEvaluateRequest) -> Dict[str, Any]:
+    return owf_evaluate_endpoint(
+        x=req.x, method=req.method, p=req.p, g=req.g,
+    )
+
+
+@app.post("/pa1/owf-hardness", tags=["PA#1 OWF + PRG"])
+def pa1_owf_hardness(req: PA1OwfHardnessRequest) -> Dict[str, Any]:
+    return owf_hardness_endpoint(
+        method=req.method, trials=req.trials, p=req.p, g=req.g,
+    )
+
+
+@app.post("/pa1/prg-generate", tags=["PA#1 OWF + PRG"])
+def pa1_prg_generate(req: PA1PrgGenerateRequest) -> Dict[str, Any]:
+    return prg_generate_endpoint(
+        seed=req.seed, n_bits=req.n_bits,
+        method=req.method, p=req.p, g=req.g,
+    )
+
+
+@app.post("/pa1/prg-to-owf-demo", tags=["PA#1 OWF + PRG"])
+def pa1_prg_to_owf_demo(req: PA1PrgToOwfDemoRequest) -> Dict[str, Any]:
+    return prg_to_owf_demo_endpoint(
+        seed_val=req.seed_val, method=req.method, p=req.p, g=req.g,
+    )
+
+
+@app.post("/pa1/prg-as-owf-hardness", tags=["PA#1 OWF + PRG"])
+def pa1_prg_as_owf_hardness(req: PA1PrgAsOwfHardnessRequest) -> Dict[str, Any]:
+    return prg_as_owf_hardness_endpoint(
+        seed_val=req.seed_val, trials=req.trials,
+        method=req.method, p=req.p, g=req.g,
+    )
+
+
+# ---------------------------------------------------------------------------
+# PA #2 -- PRF (GGM tree)
+# ---------------------------------------------------------------------------
+
+@app.post("/pa2/eval", tags=["PA#2 PRF (GGM)"])
+def pa2_eval(req: PA2EvalRequest) -> Dict[str, Any]:
+    return prf_eval_endpoint(
+        k=req.k, x=req.x, method=req.method, p=req.p, g=req.g,
+    )
+
+
+@app.post("/pa2/trace", tags=["PA#2 PRF (GGM)"])
+def pa2_trace(req: PA2TraceRequest) -> Dict[str, Any]:
+    return prf_trace_endpoint(
+        k=req.k, x=req.x, method=req.method, p=req.p, g=req.g,
+    )
+
+
+@app.post("/pa2/prf-to-prg", tags=["PA#2 PRF (GGM)"])
+def pa2_prf_to_prg(req: PA2PrgRequest) -> Dict[str, Any]:
+    return prf_to_prg_endpoint(
+        s=req.s, method=req.method, p=req.p, g=req.g,
+    )
+
+
+@app.post("/pa2/distinguish-game", tags=["PA#2 PRF (GGM)"])
+def pa2_distinguish_game(req: PA2DistinguishGameRequest) -> Dict[str, Any]:
+    return prf_distinguish_game_endpoint(
+        k=req.k, q=req.q, method=req.method, p=req.p, g=req.g,
+    )
+
+
+@app.post("/pa2/distinguish-experiment", tags=["PA#2 PRF (GGM)"])
+def pa2_distinguish_experiment(req: PA2DistinguishExperimentRequest) -> Dict[str, Any]:
+    return prf_distinguish_experiment_endpoint(
+        k=req.k, rounds=req.rounds, q=req.q,
+        method=req.method, p=req.p, g=req.g,
+    )
+
+
+# ---------------------------------------------------------------------------
+# PA #3 -- CPA-secure encryption
+# ---------------------------------------------------------------------------
+
+@app.post("/pa3/encrypt", tags=["PA#3 CPA Encryption"])
+def pa3_encrypt(req: PA3EncryptRequest) -> Dict[str, Any]:
+    return cpa_encrypt_endpoint(
+        k=req.k, m=req.m, method=req.method, p=req.p, g=req.g,
+    )
+
+
+@app.post("/pa3/decrypt", tags=["PA#3 CPA Encryption"])
+def pa3_decrypt(req: PA3DecryptRequest) -> Dict[str, Any]:
+    return cpa_decrypt_endpoint(
+        k=req.k, r=req.r, c=req.c,
+        method=req.method, p=req.p, g=req.g,
+    )
+
+
+@app.post("/pa3/ind-cpa-game", tags=["PA#3 CPA Encryption"])
+def pa3_ind_cpa_game(req: PA3GameRequest) -> Dict[str, Any]:
+    return ind_cpa_game_endpoint(
+        k=req.k, m0=req.m0, m1=req.m1, reuse_nonce=req.reuse_nonce,
+        method=req.method, p=req.p, g=req.g,
+    )
+
+
+@app.post("/pa3/dummy-adversary", tags=["PA#3 CPA Encryption"])
+def pa3_dummy_adversary(req: PA3DummyAdversaryRequest) -> Dict[str, Any]:
+    return dummy_adversary_endpoint(
+        k=req.k, m0=req.m0, m1=req.m1,
+        rounds=req.rounds, oracle_queries=req.oracle_queries,
+        method=req.method, p=req.p, g=req.g,
+    )
+
+
+@app.post("/pa3/nonce-reuse-attack", tags=["PA#3 CPA Encryption"])
+def pa3_nonce_reuse_attack(req: PA3NonceReuseAttackRequest) -> Dict[str, Any]:
+    return nonce_reuse_attack_endpoint(
+        k=req.k, m0=req.m0, m1=req.m1,
+        rounds=req.rounds, reuse_nonce=req.reuse_nonce,
+        method=req.method, p=req.p, g=req.g,
+    )
+
+
+# ---------------------------------------------------------------------------
 # PA #4 -- Modes (CBC / OFB / CTR)
 # ---------------------------------------------------------------------------
 
@@ -459,6 +862,80 @@ def pa7_collision_demo(req: HookPayload) -> Dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
+# PA #10 -- HMAC + Encrypt-then-HMAC
+# ---------------------------------------------------------------------------
+
+@app.post("/pa10/hmac-tag", tags=["PA#10 HMAC"])
+def pa10_hmac_tag(req: PA10HmacTagRequest) -> Dict[str, Any]:
+    return hmac_tag_endpoint(
+        key_hex=req.key_hex,
+        message=req.message,
+        params=req.params,
+        q_bits=req.q_bits,
+    )
+
+
+@app.post("/pa10/hmac-verify", tags=["PA#10 HMAC"])
+def pa10_hmac_verify(req: PA10HmacVerifyRequest) -> Dict[str, Any]:
+    return hmac_verify_endpoint(
+        key_hex=req.key_hex,
+        message=req.message,
+        tag_hex=req.tag_hex,
+        params=req.params,
+        q_bits=req.q_bits,
+    )
+
+
+@app.post("/pa10/length-extension-demo", tags=["PA#10 HMAC"])
+def pa10_length_extension(req: PA10DemoRequest) -> Dict[str, Any]:
+    return length_extension_demo_endpoint(params=req.params, q_bits=req.q_bits)
+
+
+@app.post("/pa10/crhf-to-mac-demo", tags=["PA#10 HMAC"])
+def pa10_crhf_to_mac(req: PA10DemoRequest) -> Dict[str, Any]:
+    return crhf_to_mac_demo_endpoint(params=req.params, q_bits=req.q_bits)
+
+
+@app.post("/pa10/mac-to-crhf-demo", tags=["PA#10 HMAC"])
+def pa10_mac_to_crhf(req: PA10DemoRequest) -> Dict[str, Any]:
+    return mac_to_crhf_demo_endpoint(params=req.params, q_bits=req.q_bits)
+
+
+@app.post("/pa10/eth-encrypt", tags=["PA#10 HMAC"])
+def pa10_eth_encrypt(req: PA10EthEncryptRequest) -> Dict[str, Any]:
+    return eth_encrypt_endpoint(
+        key_e_hex=req.key_e_hex,
+        key_m_hex=req.key_m_hex,
+        message=req.message,
+        params=req.params,
+        q_bits=req.q_bits,
+    )
+
+
+@app.post("/pa10/eth-decrypt", tags=["PA#10 HMAC"])
+def pa10_eth_decrypt(req: PA10EthDecryptRequest) -> Dict[str, Any]:
+    return eth_decrypt_endpoint(
+        key_e_hex=req.key_e_hex,
+        key_m_hex=req.key_m_hex,
+        nonce_hex=req.nonce_hex,
+        ciphertext_hex=req.ciphertext_hex,
+        tag_hex=req.tag_hex,
+        params=req.params,
+        q_bits=req.q_bits,
+    )
+
+
+@app.post("/pa10/timing-demo", tags=["PA#10 HMAC"])
+def pa10_timing_demo(req: PA10TimingRequest) -> Dict[str, Any]:
+    return timing_demo_endpoint(tag_length=req.tag_length, trials=req.trials)
+
+
+@app.post("/pa10/secure-compare", tags=["PA#10 HMAC"])
+def pa10_secure_compare(req: PA10SecureCompareRequest) -> Dict[str, Any]:
+    return secure_compare_endpoint(a_hex=req.a_hex, b_hex=req.b_hex)
+
+
+# ---------------------------------------------------------------------------
 # PA #11 -- Diffie-Hellman
 # ---------------------------------------------------------------------------
 
@@ -475,6 +952,81 @@ def pa11_exchange(req: PA11ExchangeRequest) -> Dict[str, Any]:
 @app.post("/pa11/mitm-demo", tags=["PA#11 Diffie-Hellman"])
 def pa11_mitm_demo(req: PA11MITMRequest) -> Dict[str, Any]:
     return dh_mitm_demo_endpoint(req.params)
+
+
+# ---------------------------------------------------------------------------
+# PA #8 -- DLP-based CRHF
+# ---------------------------------------------------------------------------
+
+@app.post("/pa8/group-setup", tags=["PA#8 DLP Hash"])
+def pa8_group_setup(req: PA8GroupRequest) -> Dict[str, Any]:
+    return group_setup_endpoint(q_bits=req.q_bits)
+
+
+@app.post("/pa8/compress", tags=["PA#8 DLP Hash"])
+def pa8_compress(req: PA8CompressRequest) -> Dict[str, Any]:
+    return compress_endpoint(x=req.x, y=req.y, params=req.params)
+
+
+@app.post("/pa8/hash", tags=["PA#8 DLP Hash"])
+def pa8_hash(req: PA8HashRequest) -> Dict[str, Any]:
+    return hash_endpoint(
+        message=req.message,
+        params=req.params,
+        q_bits=req.q_bits,
+        out_bits=req.out_bits,
+    )
+
+
+@app.get("/pa8/proof", tags=["PA#8 DLP Hash"])
+def pa8_proof() -> Dict[str, Any]:
+    return proof_endpoint()
+
+
+@app.post("/pa8/collision-compress", tags=["PA#8 DLP Hash"])
+def pa8_collision_compress(req: PA8CollisionCompressRequest) -> Dict[str, Any]:
+    return collision_compress_endpoint(q_bits=req.q_bits, params=req.params)
+
+
+@app.post("/pa8/collision-hash", tags=["PA#8 DLP Hash"])
+def pa8_collision_hash(req: PA8CollisionHashRequest) -> Dict[str, Any]:
+    return collision_hash_endpoint(
+        q_bits=req.q_bits, out_bits=req.out_bits, params=req.params
+    )
+
+
+# ---------------------------------------------------------------------------
+# PA #9 -- Birthday Attack
+# ---------------------------------------------------------------------------
+
+@app.post("/pa9/attack", tags=["PA#9 Birthday Attack"])
+def pa9_attack(req: PA9AttackRequest) -> Dict[str, Any]:
+    return naive_birthday_endpoint(n=req.n, max_trials=req.max_trials)
+
+
+@app.post("/pa9/floyd", tags=["PA#9 Birthday Attack"])
+def pa9_floyd(req: PA9AttackRequest) -> Dict[str, Any]:
+    return floyd_birthday_endpoint(n=req.n, max_steps=req.max_trials)
+
+
+@app.post("/pa9/dlp-attack", tags=["PA#9 Birthday Attack"])
+def pa9_dlp_attack(req: PA9DLPAttackRequest) -> Dict[str, Any]:
+    return attack_dlp_hash_endpoint(n=req.n, q_bits=req.q_bits)
+
+
+@app.post("/pa9/trials", tags=["PA#9 Birthday Attack"])
+def pa9_trials(req: PA9TrialsRequest) -> Dict[str, Any]:
+    return birthday_trials_endpoint(n=req.n, trials=req.trials)
+
+
+@app.post("/pa9/curve", tags=["PA#9 Birthday Attack"])
+def pa9_curve(req: PA9CurveRequest) -> Dict[str, Any]:
+    return birthday_curve_endpoint(n_values=req.n_values, trials=req.trials)
+
+
+@app.get("/pa9/md5-sha1-context", tags=["PA#9 Birthday Attack"])
+def pa9_md5_sha1_context() -> Dict[str, Any]:
+    return md5_sha1_context_endpoint()
 
 
 # ---------------------------------------------------------------------------
