@@ -5,6 +5,8 @@ import DHPage from './pages/DHPage'
 import BirthdayPage from './pages/BirthdayPage'
 import MpcPage from './pages/MpcPage'
 import HastadPage from './pages/HastadPage'
+import Pa15ForgeryPage from './pages/Pa15_ForgeryPage';
+import Pa12DeterminismPage from './pages/Pa12_DeterminismPage';
 
 import { checkHealth } from './api/client'
 import './App.css'
@@ -16,6 +18,8 @@ const TABS = [
   { id: 'birthday', label: 'PA#9 Birthday' },
   { id: 'mpc', label: 'PA#20 MPC' },
   { id: 'hastad', label: 'PA#14 Hastad' },
+  { id: 'pa15', label: 'PA#15 Forgery' },
+  { id: 'pa12', label: 'PA#12 RSA Determinism' },
 ]
 
 export default function App() {
@@ -57,6 +61,8 @@ export default function App() {
         {tab === 'birthday' && <BirthdayPage />}
         {tab === 'mpc' && <MpcPage />}
         {tab === 'hastad' && <HastadPage />}
+        {tab === 'pa15' && <Pa15ForgeryPage />}
+        {tab === 'pa12' && <Pa12DeterminismPage />}
       </main>
     </div>
   )
