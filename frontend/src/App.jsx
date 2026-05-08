@@ -11,6 +11,7 @@ import Pa16MalleabilityPage from './pages/Pa16_MalleabilityPage';
 import Pa17CcaPkcPage from './pages/Pa17_CcaPkcPage';
 import Pa18OTPage from './pages/Pa18_OTPage';
 import Pa19SecureGatesPage from './pages/Pa19_SecureGatesPage';
+import Pa10HmacPage from './pages/Pa10_HmacPage';
 
 import { checkHealth } from './api/client'
 import './App.css'
@@ -28,6 +29,7 @@ const TABS = [
   { id: 'pa17', label: 'PA#17 CCA-Secure PKC' },
   { id: 'pa18', label: 'PA#18 Oblivious Transfer' },
   { id: 'pa19', label: 'PA#19 Secure Gates' },
+  { id: 'pa10', label: 'PA#10 HMAC' },
 ]
 
 export default function App() {
@@ -75,6 +77,7 @@ export default function App() {
         {tab === 'pa17' && <Pa17CcaPkcPage />}
         {tab === 'pa18' && <Pa18OTPage />}
         {tab === 'pa19' && <Pa19SecureGatesPage />}
+        {tab === 'pa10' && <Pa10HmacPage />}
       </main>
     </div>
   )
