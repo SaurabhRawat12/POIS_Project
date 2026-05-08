@@ -12,6 +12,12 @@ import Pa17CcaPkcPage from './pages/Pa17_CcaPkcPage';
 import Pa18OTPage from './pages/Pa18_OTPage';
 import Pa19SecureGatesPage from './pages/Pa19_SecureGatesPage';
 import Pa10HmacPage from './pages/Pa10_HmacPage';
+import Pa1OwfPrgPage from './pages/Pa1_OwfPrgPage';
+import Pa2PrfPage from './pages/Pa2_PrfPage';
+import Pa3CpaPage from './pages/Pa3_CpaPage';
+import Pa4ModesPage from './pages/Pa4_ModesPage';
+import Pa5MacPage from './pages/Pa5_MacPage';
+import Pa7MdHashPage from './pages/Pa7_MdHashPage';
 
 import { checkHealth } from './api/client'
 import './App.css'
@@ -30,6 +36,12 @@ const TABS = [
   { id: 'pa18', label: 'PA#18 Oblivious Transfer' },
   { id: 'pa19', label: 'PA#19 Secure Gates' },
   { id: 'pa10', label: 'PA#10 HMAC' },
+  { id: 'pa1', label: 'PA#1 OWF & PRG' },
+  { id: 'pa2', label: 'PA#2 PRF (GGM)' },
+  { id: 'pa3', label: 'PA#3 CPA' },
+  { id: 'pa4', label: 'PA#4 Modes' },
+  { id: 'pa5', label: 'PA#5 MAC' },
+  { id: 'pa7', label: 'PA#7 MD Hash' },
 ]
 
 export default function App() {
@@ -78,6 +90,12 @@ export default function App() {
         {tab === 'pa18' && <Pa18OTPage />}
         {tab === 'pa19' && <Pa19SecureGatesPage />}
         {tab === 'pa10' && <Pa10HmacPage />}
+        {tab === 'pa1' && <Pa1OwfPrgPage />}
+        {tab === 'pa2' && <Pa2PrfPage />}
+        {tab === 'pa3' && <Pa3CpaPage />}
+        {tab === 'pa4' && <Pa4ModesPage />}
+        {tab === 'pa5' && <Pa5MacPage />}
+        {tab === 'pa7' && <Pa7MdHashPage />}
       </main>
     </div>
   )
