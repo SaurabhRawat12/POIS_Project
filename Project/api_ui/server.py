@@ -13,6 +13,7 @@ where every endpoint can be tested directly in the browser.
 
 from __future__ import annotations
 
+import random
 from typing import Any, Dict, List, Optional
 
 from fastapi import FastAPI
@@ -257,6 +258,8 @@ class PA14HastadRequest(BaseModel):
     message: int
     bits: int = 64
     e: int = 3
+    use_pkcs15: bool = False
+    k: int = 12
     seed: Optional[int] = None
 
 
@@ -1035,26 +1038,24 @@ def pa9_md5_sha1_context() -> Dict[str, Any]:
 
 @app.post("/pa12/keygen", tags=["PA#12 RSA"])
 def pa12_keygen(req: PA12KeyGenRequest) -> Dict[str, Any]:
-    return rsa_keygen_endpoint(bits=req.bits, seed=req.seed)
+    return rsa_keygen_endpoint(bits=req.bits)
 
 
 @app.post("/pa12/roundtrip", tags=["PA#12 RSA"])
 def pa12_roundtrip(req: PA12RoundtripRequest) -> Dict[str, Any]:
-    return rsa_roundtrip_endpoint(message=req.message, bits=req.bits, seed=req.seed)
+    return rsa_roundtrip_endpoint(message_int=req.message, bits=req.bits)
 
 
 @app.post("/pa12/pkcs15-roundtrip", tags=["PA#12 RSA"])
 def pa12_pkcs15_roundtrip(req: PA12DemoRequest) -> Dict[str, Any]:
-    return pkcs15_roundtrip_endpoint(
-        message=req.message.encode("utf-8"), bits=req.bits, seed=req.seed
-    )
+    return pkcs15_roundtrip_endpoint(message=req.message.encode("utf-8"), bits=req.bits)
+
 
 
 @app.post("/pa12/determinism-demo", tags=["PA#12 RSA"])
 def pa12_determinism_demo(req: PA12DemoRequest) -> Dict[str, Any]:
-    return rsa_determinism_demo_endpoint(
-        message=req.message.encode("utf-8"), bits=req.bits, seed=req.seed
-    )
+    return rsa_determinism_demo_endpoint(message=req.message.encode("utf-8"), bits=req.bits)
+
 
 
 # ---------------------------------------------------------------------------
@@ -1087,8 +1088,14 @@ def pa14_rsa_dec_crt(req: PA14RSADecCRTRequest) -> Dict[str, Any]:
 
 @app.post("/pa14/hastad-demo", tags=["PA#14 CRT"])
 def pa14_hastad_demo(req: PA14HastadRequest) -> Dict[str, Any]:
+    rng = random.Random(req.seed) if req.seed is not None else None
     return hastad_demo_endpoint(
-        message=req.message, bits=req.bits, e=req.e, seed=req.seed
+        message_int=req.message,
+        bits=req.bits,
+        e=req.e,
+        use_pkcs15=req.use_pkcs15,
+        k=req.k,
+        rng=rng,
     )
 
 
