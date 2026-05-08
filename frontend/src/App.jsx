@@ -18,6 +18,8 @@ import Pa3CpaPage from './pages/Pa3_CpaPage';
 import Pa4ModesPage from './pages/Pa4_ModesPage';
 import Pa5MacPage from './pages/Pa5_MacPage';
 import Pa7MdHashPage from './pages/Pa7_MdHashPage';
+import Pa6CcaSymPage from './pages/Pa6_CcaSymPage';
+import Pa8DlpHashPage from './pages/Pa8_DlpHashPage';
 
 import { checkHealth } from './api/client'
 import './App.css'
@@ -42,6 +44,8 @@ const TABS = [
   { id: 'pa4', label: 'PA#4 Modes' },
   { id: 'pa5', label: 'PA#5 MAC' },
   { id: 'pa7', label: 'PA#7 MD Hash' },
+  { id: 'pa6', label: 'PA#6 CCA-Sym' },
+  { id: 'pa8', label: 'PA#8 DLP Hash' },
 ]
 
 export default function App() {
@@ -96,6 +100,8 @@ export default function App() {
         {tab === 'pa4' && <Pa4ModesPage />}
         {tab === 'pa5' && <Pa5MacPage />}
         {tab === 'pa7' && <Pa7MdHashPage />}
+        {tab === 'pa6' && <Pa6CcaSymPage />}
+        {tab === 'pa8' && <Pa8DlpHashPage />}
       </main>
     </div>
   )

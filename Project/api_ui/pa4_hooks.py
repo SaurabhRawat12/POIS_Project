@@ -34,6 +34,28 @@ def pa4_encrypt_hook(payload: dict[str, Any]) -> dict[str, Any]:
     block_size = int(payload.get("block_size", 16))
 
     cipher = build_feistel_cipher(key, block_size=block_size)
+
+    # ECB short-circuit: friend's pa4_modes.encrypt() raises "unsupported mode"
+    # for ECB. We implement it here directly — no chaining state, no IV,
+    # just PKCS#7 pad and apply the block cipher to each block independently.
+    if mode.upper() == "ECB":
+        pad_len = block_size - (len(message) % block_size)  # always 1..block_size
+        padded = message + bytes([pad_len]) * pad_len
+
+        ct_blocks = []
+        for i in range(0, len(padded), block_size):
+            blk = padded[i:i + block_size]
+            ct_blocks.append(cipher.encrypt_block(blk))   # see note below if this errors
+        ciphertext = b"".join(ct_blocks)
+
+        return {
+            "pa_id": "PA-4",
+            "result": {"ciphertext": ciphertext.hex()},
+            "trace": {"mode": "ECB", "block_size": block_size},
+            "security_note": "ECB encrypts each block independently — identical plaintext blocks produce identical ciphertext blocks, leaking patterns (the canonical 'ECB penguin').",
+        }
+
+    # Existing path for CBC / CTR / OFB
     result = encrypt(mode, key, message, block_cipher=cipher, block_size=block_size)
 
     return {
